@@ -4,6 +4,8 @@
   --terminal-text: #33ff33;
   --terminal-dim: #1a1a1a;
   --glitch-color: #00ff00;
+  --terminal-glow: rgba(0, 255, 0, 0.1);
+  --terminal-shadow: rgba(0, 255, 0, 0.05);
 }
 
 * {
@@ -25,12 +27,13 @@ body {
 }
 
 .glitch-container {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .glitch {
-  font-size: 3.5rem;
+  font-size: 4.5rem;
   font-weight: bold;
+  text-transform: uppercase;
   position: relative;
   text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
                0.025em 0.04em 0 #fffc00;
@@ -47,10 +50,12 @@ body {
   width: 100%;
   max-width: 800px;
   background: rgba(26, 26, 26, 0.95);
-  border-radius: 6px;
-  box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.1),
+              inset 0 0 15px rgba(0, 255, 0, 0.05);
   overflow: hidden;
-  border: 1px solid rgba(0, 255, 0, 0.1);
+  border: 1px solid rgba(0, 255, 0, 0.15);
+  backdrop-filter: blur(5px);
 }
 
 .terminal-header {
@@ -71,16 +76,37 @@ body {
 .green { background-color: #27c93f; }
 
 .terminal-content {
-  padding: 20px;
+  padding: 25px;
+  animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .command {
-  margin-bottom: 20px;
+  margin-bottom: 12px;
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards;
+  animation-delay: calc(var(--i) * 0.1s);
 }
+
+.command:nth-child(1) { --i: 1; }
+.command:nth-child(2) { --i: 2; }
+.command:nth-child(3) { --i: 3; }
+.command:nth-child(4) { --i: 4; }
 
 .prompt {
   color: var(--terminal-green);
   margin-right: 10px;
+  font-weight: bold;
+}
+
+.prompt::before {
+  content: '❯';
+  margin-right: 8px;
+  color: var(--terminal-green);
 }
 
 .response {
@@ -88,31 +114,51 @@ body {
   margin-left: 20px;
   margin-top: 5px;
   line-height: 1.5;
+  animation: typing 1s steps(50, end);
+}
+
+@keyframes typing {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .project {
-  display: block;
-  color: var(--terminal-text);
-  text-decoration: none;
-  margin: 5px 0;
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 4px;
   transition: all 0.3s ease;
+  background: rgba(0, 255, 0, 0.03);
+}
+
+.project::before {
+  content: '📁';
+  margin-right: 8px;
+  opacity: 0.8;
 }
 
 .project:hover {
-  color: #fff;
-  text-shadow: 0 0 8px var(--terminal-text);
-  transform: translateX(10px);
+  background: rgba(0, 255, 0, 0.05);
+  transform: translateX(5px);
+  border-color: rgba(0, 255, 0, 0.15);
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.07);
 }
 
 .social-links a {
   color: var(--terminal-text);
   text-decoration: none;
   transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+  margin: 0 0.5rem;
+  border: 1px solid transparent;
 }
 
 .social-links a:hover {
   color: #fff;
   text-shadow: 0 0 8px var(--terminal-text);
+  border: 1px solid var(--terminal-green);
+  border-radius: 4px;
+  background: rgba(0, 255, 0, 0.1);
 }
 
 @keyframes glitch {
@@ -140,4 +186,309 @@ body {
     text-shadow: -0.05em 0 0 #00fffc, -0.025em -0.04em 0 #fc00ff,
                  -0.04em -0.025em 0 #fffc00;
   }
+}
+
+.header-section {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.header-contact {
+    margin-top: 1rem;
+    padding: 0.5rem;
+    background: rgba(26, 26, 26, 0.8);
+    border-radius: 4px;
+    border: 1px solid rgba(0, 255, 0, 0.1);
+    display: inline-block;
+}
+
+.social-links {
+    font-size: 0.9rem;
+    color: rgba(0, 255, 0, 0.7);
+}
+
+.social-links a {
+    color: var(--terminal-green);
+    text-decoration: none;
+    padding: 0 10px;
+    transition: all 0.3s ease;
+    opacity: 0.8;
+}
+
+.social-links a:hover {
+    color: #fff;
+    text-shadow: 0 0 8px var(--terminal-green);
+    opacity: 1;
+}
+
+.project-list {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.project-item {
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
+    padding: 5px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-family: 'Courier New', monospace;
+}
+
+.project-item:hover {
+    transform: translateX(10px);
+    background: rgba(0, 255, 0, 0.1);
+    border-radius: 4px;
+}
+
+.project-icon {
+    color: var(--terminal-green);
+    margin-right: 10px;
+    font-size: 0.9em;
+}
+
+.project-name {
+    color: var(--terminal-text);
+    text-decoration: none;
+}
+
+.project-name.py::after {
+    content: '.py';
+    color: #666;
+}
+
+.project-name.sh::after {
+    content: '.sh';
+    color: #666;
+}
+
+.project-name.log::after {
+    content: '.log';
+    color: #666;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.footer-social {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    position: relative;
+}
+
+.social-line {
+    height: 1px;
+    background: linear-gradient(
+        to right,
+        transparent,
+        var(--terminal-green),
+        transparent
+    );
+    margin-bottom: 1rem;
+    opacity: 0.3;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    font-size: 0.8rem;
+    font-family: 'Courier New', monospace;
+}
+
+.social-icon {
+    color: var(--terminal-text);
+    text-decoration: none;
+    padding: 0.3rem 0.6rem;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+    opacity: 0.7;
+    position: relative;
+}
+
+.social-icon:hover {
+    opacity: 1;
+    background: rgba(0, 255, 0, 0.1);
+    text-shadow: 0 0 8px var(--terminal-green);
+}
+
+.social-icon::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--terminal-green);
+    transition: width 0.3s ease;
+}
+
+.social-icon:hover::before {
+    width: 100%;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .glitch {
+        font-size: 3rem;
+    }
+    
+    .terminal {
+        margin: 1rem;
+    }
+    
+    .terminal-content {
+        padding: 15px;
+    }
+}
+
+/* Command specific styling */
+.command[data-type="whoami"] .response {
+    color: #00ff9d;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.command[data-type="cat"] .response {
+    padding-left: 15px;
+}
+
+.command[data-type="cat"] .response > * {
+    position: relative;
+    padding-left: 12px;
+    line-height: 1.6;
+}
+
+.command[data-type="cat"] .response > *::before {
+    content: '>';
+    position: absolute;
+    left: 0;
+    color: var(--terminal-green);
+    opacity: 0.7;
+}
+
+/* Project list styling */
+.command[data-type="ls"] .response {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 8px;
+    padding: 5px 0;
+}
+
+.project {
+    color: #0F0;
+    text-decoration: none;
+    padding: 8px 12px;
+    border: 1px solid rgba(0, 255, 0, 0.1);
+    border-radius: 3px;
+    background: rgba(0, 255, 0, 0.03);
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    font-size: 0.9em;
+}
+
+.project::before {
+    content: '📁';
+    margin-right: 8px;
+    font-size: 0.9em;
+    opacity: 0.8;
+}
+
+.project:hover {
+    transform: translateX(10px);
+    background: rgba(0, 255, 0, 0.08);
+    border-color: rgba(0, 255, 0, 0.2);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.1);
+}
+
+/* File type colors */
+.project[href*=".py"] { color: #3572A5; }
+.project[href*=".sh"] { color: #89e051; }
+.project[href*=".log"] { color: #ffa500; }
+
+/* Hover state returns to terminal green */
+.project:hover {
+    color: var(--terminal-green) !important;
+}
+
+/* Contact info styling */
+.command[data-type="contact"] .social-links {
+    display: flex;
+    gap: 15px;
+    padding: 5px 0;
+}
+
+.social-links a {
+    position: relative;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background: rgba(0, 255, 0, 0.05);
+    margin: 0 4px;
+}
+
+.social-links a::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--terminal-green);
+    transition: width 0.3s ease;
+}
+
+.social-links a:hover::before {
+    width: 100%;
+}
+
+/* Animation keyframes */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Add these new styles */
+.typing {
+    border-right: 2px solid var(--terminal-green);
+    animation: blink 1s step-end infinite;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.typing-delay {
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+}
+
+.hidden {
+    display: none;
+}
+
+.login-sequence .command {
+    margin-bottom: 10px;
+}
+
+@keyframes blink {
+    0%, 100% { border-color: transparent; }
+    50% { border-color: var(--terminal-green); }
 }

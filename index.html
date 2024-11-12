@@ -21,35 +21,56 @@
             <div class="terminal-button green"></div>
         </div>
         <div class="terminal-content">
-            <div class="command">
-                <span class="prompt">$</span> whoami
-                <div class="response">Cybersecurity Specialist | Hacker | Developer</div>
-            </div>
-            <div class="command">
-                <span class="prompt">$</span> cat skills.txt
-                <div class="response">
-                    > Penetration Testing
-                    > Network Security
-                    > Python Development
-                    > Social Engineering
-                    > System Architecture
+            <!-- Login sequence -->
+            <div class="login-sequence">
+                <div class="command" data-type="login">
+                    <span class="prompt">$</span> <span class="typing">login: mr_robot</span>
+                </div>
+                <div class="command" data-type="password">
+                    <span class="prompt">$</span> <span class="typing">password: ********</span>
+                </div>
+                <div class="command" data-type="access">
+                    <span class="typing">Access granted...</span>
+                </div>
+                <div class="command" data-type="loading">
+                    <span class="typing">Loading user profile...</span>
                 </div>
             </div>
-            <div class="command">
-                <span class="prompt">$</span> ls projects/
-                <div class="response">
-                    <a href="#" class="project">fsociety.py</a>
-                    <a href="#" class="project">darkArmy.sh</a>
-                    <a href="#" class="project">e-corp-hack.log</a>
+
+            <!-- Main content with typing effect -->
+            <div class="main-content hidden">
+                <div class="command" data-type="whoami">
+                    <span class="prompt">$</span> <span class="typing">whoami</span>
+                    <div class="response typing-delay">Trader | Programming Enthusiast | Tech Explorer</div>
                 </div>
-            </div>
-            <div class="command">
-                <span class="prompt">$</span> contact --info
-                <div class="response">
-                    <div class="social-links">
-                        <a href="https://github.com/MR-5OBOT" target="_blank">GitHub</a> |
-                        <a href="https://twitter.com/MR_5OBOT" target="_blank">Twitter</a> |
-                        <a href="mailto:contact@mrrobot.com">Email</a>
+                
+                <div class="command" data-type="cat">
+                    <span class="prompt">$</span> <span class="typing">cat skills.txt</span>
+                    <div class="response typing-delay">
+                        <div>> Trading Strategies</div>
+                        <div>> Technical Analysis</div>
+                        <div>> Python Development</div>
+                        <div>> Algorithm Design</div>
+                        <div>> Market Analysis</div>
+                    </div>
+                </div>
+                
+                <div class="command" data-type="ls">
+                    <span class="prompt">$</span> <span class="typing">ls projects/</span>
+                    <div class="response typing-delay">
+                        <a href="#" class="project">fsociety.py</a>
+                        <a href="#" class="project">darkArmy.sh</a>
+                        <a href="#" class="project">e-corp-hack.log</a>
+                    </div>
+                </div>
+                
+                <div class="command" data-type="contact">
+                    <span class="prompt">$</span> contact --info
+                    <div class="response">
+                        <div class="social-links">
+                            <a href="https://github.com/MR-5OBOT" target="_blank">GitHub</a> |
+                            <a href="https://twitter.com/MR_5OBOT" target="_blank">Twitter</a>
+                        </div>
                     </div>
                 </div>
             </div>
